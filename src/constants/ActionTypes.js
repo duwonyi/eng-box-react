@@ -1,0 +1,4 @@
+export const INCREMENT = 'INCREMENT'
+export const DECREMENT = 'DECREMENT'
+export const RECEIVE_SENTENCES = 'RECEIVE_SENTENCES'
+export const ADD_SENTENCE = 'ADD_SENTENCE'
