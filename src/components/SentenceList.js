@@ -6,6 +6,7 @@ const SentenceList = ({sentences}) => (
       <tr>
         <th>Sentence</th>
         <th>CreatedAt</th>
+        <th>Source</th>
       </tr>
     </thead>
     <tbody>
@@ -16,6 +17,7 @@ const SentenceList = ({sentences}) => (
           >
             <td>{sentence.sentence}</td>
             <td>{sentence.createdAt.toLocaleString()}</td>
+            <td>{sentence.source.title}</td>
           </tr>
         ))
       }
