@@ -22,7 +22,8 @@ const addSentenceSuccess = (sentence) => ({
 
 export const addSentence = (sentence, cbSuccess, cbError) => (dispatch) => {
   apiClient.saveSentence(sentence)
-    .then(() => {
+    .then((newSentence) => {
+      sentence._id = newSentence._id
       dispatch(addSentenceSuccess(sentence))
       cbSuccess()
     })

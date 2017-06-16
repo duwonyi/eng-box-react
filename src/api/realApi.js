@@ -1,12 +1,16 @@
-const baseUrl = 'http://localhost:3001/'
+const baseUrl = 'http://localhost:3001/api'
 
 const realApi = {
   loadSenetences: function() {
-    return get('sentences')
+    return get('/sentences')
   },
 
   saveSentence: function(sentence) {
-    return post('sentences', sentence)
+    return post('/sentences', sentence)
+  },
+
+  getSources: function(source) {
+    return get('/sources')
   },
 }
 
