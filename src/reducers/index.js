@@ -23,8 +23,28 @@ const sentences = (state = {
   }
 }
 
+const sources = (state = {
+  items: []
+}, action) => {
+  switch (action.type) {
+    case types.RECEIVE_SOURCES:
+      return {
+        ...state,
+        items: state.items.concat(action.sources)
+      }
+    case types.ADD_SOURCE:
+      return {
+        ...state,
+        items: [...state.items, action.source]
+      }
+    default:
+      return state
+  }
+}
+
 const rootReducer = combineReducers({
   sentences,
+  sources,
   counter
 })
 

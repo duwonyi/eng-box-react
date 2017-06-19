@@ -9,9 +9,17 @@ const realApi = {
     return post('/sentences', sentence)
   },
 
-  getSources: function(source) {
-    return get('/sources')
+  getSources: function(type) {
+    if (type) {
+      return get(`/sources/types/${type}`)
+    } else {
+      return get('/sources')
+    }
   },
+
+  saveSource: function(source) {
+    return post('/sources', source)
+  }
 }
 
 function get(url) {

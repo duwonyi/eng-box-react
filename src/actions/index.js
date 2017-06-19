@@ -31,3 +31,34 @@ export const addSentence = (sentence, cbSuccess, cbError) => (dispatch) => {
       cbError()
     })
 }
+
+const receiveSources = (sources) => ({
+  type: types.RECEIVE_SOURCES,
+  sources
+})
+
+export const fetchSources = () => (dispatch, getState) => {
+  if (getState().sources.items.length === 0) {
+    apiClient.getSources()
+      .then(sources => {
+        dispatch(receiveSources(sources))
+      })
+  }
+}
+
+export const addSource = (source, cbSuccess, cbError) => (dispatch) => {
+  apiClient.saveSource(source)
+    .then(newSource => {
+      source._id = newSource._id
+      dispatch(addSourceSuccess(source))
+      cbSuccess()
+    })
+    .catch((err) => {
+      cbError()
+    })
+}
+
+const addSourceSuccess = (source) => ({
+  type: types.ADD_SOURCE,
+  source
+})
