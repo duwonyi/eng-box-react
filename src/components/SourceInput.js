@@ -1,21 +1,33 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import Field from './Field'
+import DropDown from './DropDown'
 
 class SourceInput extends Component {
+
+  static propTypes = {
+    saveStatus: PropTypes.string.isRequired,
+    fields: PropTypes.object.isRequired,
+    onAddSource: PropTypes.func.isRequired,
+  }
+
   state = {
-    fields: {
-      title: '',
-      type: '',
+    fields: this.props.fields || {
+      sourceTitle: '',
+      sourceType: '',
       createdAt: null,
     },
     fieldErrors: {},
-    _saveStatus: 'READY',
+  }
+
+  componentWillReceiveProps(update) {
+    this.setState({ fields: update.fields })
   }
 
   onFormSubmit = evt => {
     const source = {
-      title: this.state.fields.title,
-      type: this.state.fields.type,
+      title: this.state.fields.sourceTitle,
+      type: this.state.fields.sourceType,
     }
     source.createdAt = new Date()
 
@@ -23,20 +35,7 @@ class SourceInput extends Component {
 
     if (this.validate()) return
 
-    this.setState({ _saveStatus: 'SAVING' })
-
-    this.props.onAddSource(source, () => {
-      this.setState({
-        fields: {
-          title: '',
-          type: '',
-          createdAt: null,
-        },
-        _saveStatus: 'SUCCESS'
-      })
-    }, () => {
-      this.setState({ _saveStatus: 'ERROR' })
-    })
+    this.props.onAddSource(source)
   }
 
   onInputChange = ({ name, value, error }) => {
@@ -46,17 +45,7 @@ class SourceInput extends Component {
     fields[name] = value
     fieldErrors[name] = error;
 
-    this.setState({ fields, fieldErrors, _saveStatus: 'READY' })
-  }
-
-  onSelectType = evt => {
-    const type = evt.target.value
-
-    const fields = this.state.fields
-    const fieldErrors = this.state.fieldErrors
-
-    fields['type'] = type
-    this.setState({ fields, fieldErrors, _saveStatus: 'READY' })
+    this.setState({ fields, fieldErrors })
   }
 
   validate = () => {
@@ -64,42 +53,37 @@ class SourceInput extends Component {
     const fieldErrors = this.state.fieldErrors
     const errMessages = Object.keys(fieldErrors).filter((k) => fieldErrors[k])
 
-    if (!source.type) return true
-    if (!source.title) return true
+    if (!source.sourceType) return true
+    if (!source.sourceTitle) return true
     if (errMessages.length) return true
 
     return false
   }
 
-  capitalizeFirstLetter = (str) => (
-    str.charAt(0).toUpperCase() + str.slice(1)
-  )
-
   render() {
-    const types = ['book', 'web', 'video', 'own']
+    const sourceTypes = [
+      {name: 'Book', value: 'book'},
+      {name: 'Web', value: 'web'},
+      {name: 'Video', value: 'video'},
+      {name: 'Own', value: 'own'},
+    ]
+    const optionName = 'What the type of source?'
+    const status = this.props.saveStatus
     return (
       <div>
         <form onSubmit={this.onFormSubmit}>
-          <select
-            onChange={this.onSelectType}
-            value={this.state.fields.type || ''}
-          >
-            <option value=''>
-              Which the type of source?
-            </option>
-            {
-              types.map((type, index) => (
-                <option value={type} key={index}>
-                  {this.capitalizeFirstLetter(type)}
-                </option>
-              ))
-            }
-          </select>
+          <DropDown
+            name='sourceType'
+            value={this.state.fields.sourceType}
+            defaultOptionName={optionName}
+            options={sourceTypes}
+            onChange={this.onInputChange}
+          />
           <br />
           <Field
             placeholder='Title'
-            name='title'
-            value={this.state.fields.title}
+            name='sourceTitle'
+            value={this.state.fields.sourceTitle}
             onChange={this.onInputChange}
             validate={(val) => (val ? false : 'Title Required')}
           />
@@ -117,7 +101,7 @@ class SourceInput extends Component {
               type='submit'
               disabled={this.validate()}
             />,
-          }[this.state._saveStatus]}
+          }[status]}
         </form>
       </div>
     )
