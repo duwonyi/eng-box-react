@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { addSentence, fetchSentences } from '../actions'
+import { addSentence, fetchSentences } from '../actions/sentence'
 import SentenceList from '../components/SentenceList'
 import SentenceInput from '../components/SentenceInput'
 

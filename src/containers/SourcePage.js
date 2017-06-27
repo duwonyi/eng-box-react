@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { fetchSources, addSource } from '../actions'
+import { fetchSources, addSource } from '../actions/source'
 import SourceList from '../components/SourceList'
 import SourceInput from '../components/SourceInput'
 
