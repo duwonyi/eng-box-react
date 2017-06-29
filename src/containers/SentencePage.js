@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { addSentence, fetchSentences } from '../actions'
+import { addSentence, fetchSentences } from '../actions/sentence'
 import SentenceList from '../components/SentenceList'
 import SentenceInput from '../components/SentenceInput'
 
@@ -11,29 +11,45 @@ class SentencePage extends Component {
   }
 
   render() {
-    const { sentences, addSentence } = this.props
+    const {
+      sentences,
+      addSentence,
+      isLoading,
+      saveStatus,
+      fields,
+    } = this.props
     return (
       <div>
-        <SentenceList sentences={sentences} />
-        <SentenceInput onAddSentence={addSentence} />
+        <SentenceList
+          sentences={sentences}
+          isLoading={isLoading}
+        />
+        <SentenceInput
+          onAddSentence={addSentence}
+          saveStatus={saveStatus}
+          fields={fields}
+        />
       </div>
     )
   }
 }
 
-const mapStateToProps = (state) => ({
-  sentences: state.sentences.items
+const mapStateToProps = state => ({
+  sentences: state.sentences.items,
+  isLoading: state.common.isLoading,
+  saveStatus: state.common.saveStatus,
+  fields: state.common.fields,
 })
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   dispatch,
-  addSentence: (sentence, cbSuccess, cbError) => {
-    dispatch(addSentence(sentence, cbSuccess, cbError))
+  addSentence: sentence => {
+    dispatch(addSentence(sentence))
   },
-  fetchSentences
+  fetchSentences,
 })
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(SentencePage)

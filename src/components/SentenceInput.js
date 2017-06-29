@@ -1,22 +1,33 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import Field from './Field'
 import SourceSelect from './SourceSelect'
 
 class SentenceInput extends Component {
+
+  static propTypes = {
+    saveStatus: PropTypes.string.isRequired,
+    fields: PropTypes.object.isRequired,
+    onAddSentence: PropTypes.func.isRequired,
+  }
+
   state = {
-    fields: {
+    fields: this.props.fields || {
       sentence: '',
-      createdAt: null,
+      detail: '',
       source: null,
       sourceType: null,
       selected: null,
-      detail: '',
+      createdAt: null,
     },
     fieldErrors: {},
-    _saveStatus: 'READY',
   }
 
-  onFormSubmit = (evt) => {
+  componentWillReceiveProps(update) {
+    this.setState({ fields: update.fields })
+  }
+
+  onFormSubmit = evt => {
     const sentence = {
       sentence: this.state.fields.sentence,
       source: this.state.fields.selected,
@@ -28,22 +39,7 @@ class SentenceInput extends Component {
 
     if (this.validate()) return
 
-    this.setState({ _saveStatus: 'SAVING' })
-
-    this.props.onAddSentence(sentence, () => {
-      this.setState({
-        fields: {
-          sentence: '',
-          createdAt: null,
-          source: null,
-          selected: null,
-          detail: '',
-        },
-        _saveStatus: 'SUCCESS'
-      })
-    }, () => {
-      this.setState({ _saveStatus: 'ERROR' })
-    })
+    this.props.onAddSentence(sentence)
   }
 
   onInputChange = ({ name, value, error }) => {
@@ -53,7 +49,7 @@ class SentenceInput extends Component {
     fields[name] = value
     fieldErrors[name] = error;
 
-    this.setState({ fields, fieldErrors, _saveStatus: 'READY' })
+    this.setState({ fields, fieldErrors })
   }
 
   validate = () => {
@@ -70,15 +66,17 @@ class SentenceInput extends Component {
   }
 
   render() {
+    const status = this.props.saveStatus
     return (
       <div>
+        <h2>Add Sentence</h2>
         <form onSubmit={this.onFormSubmit}>
           <Field
             placeholder='Sentence'
             name='sentence'
             value={this.state.fields.sentence}
             onChange={this.onInputChange}
-            validate={(val) => (val ? false : 'Sentece Required')}
+            validate={(val) => (val ? false : 'Sentence Required')}
           />
           <br />
           <SourceSelect
@@ -108,7 +106,7 @@ class SentenceInput extends Component {
               type='submit'
               disabled={this.validate()}
             />,
-          }[this.state._saveStatus]}
+          }[status]}
         </form>
       </div>
     )

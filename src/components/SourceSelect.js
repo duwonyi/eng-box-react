@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import apiClient from './../api/apiClient'
+import apiClient from '../api/apiClient'
+import { capitalizeFirstLetter } from '../lib/util'
 
 class SourceSelect extends Component {
   static propTypes = {
@@ -65,7 +66,7 @@ class SourceSelect extends Component {
         {
           types.map((type, index) => (
             <option value={type} key={index}>
-              {this.capitalizeFirstLetter(type)}
+              {capitalizeFirstLetter(type)}
             </option>
           ))
         }
@@ -98,10 +99,6 @@ class SourceSelect extends Component {
       </select>
     )
   }
-
-  capitalizeFirstLetter = (str) => (
-    str.charAt(0).toUpperCase() + str.slice(1)
-  )
 
   render() {
     return (

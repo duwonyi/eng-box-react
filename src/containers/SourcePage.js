@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { fetchSources, addSource } from '../actions'
+import { fetchSources, addSource } from '../actions/source'
 import SourceList from '../components/SourceList'
 import SourceInput from '../components/SourceInput'
 
@@ -11,24 +11,40 @@ class SourcePage extends Component {
   }
 
   render() {
-    const { sources, addSource } = this.props
+    const {
+      sources,
+      addSource,
+      isLoading,
+      saveStatus,
+      fields,
+    } = this.props
     return (
       <div>
-        <SourceList sources={sources} />
-        <SourceInput onAddSource={addSource} />
+        <SourceList
+          sources={sources}
+          isLoading={isLoading}
+        />
+        <SourceInput
+          onAddSource={addSource}
+          saveStatus={saveStatus}
+          fields={fields}
+        />
       </div>
     )
   }
 }
 
-const mapStateToProps = (state) => ({
-  sources: state.sources.items
+const mapStateToProps = state => ({
+  sources: state.sources.items,
+  isLoading: state.common.isLoading,
+  saveStatus: state.common.saveStatus,
+  fields: state.common.fields,
 })
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   dispatch,
-  addSource: (source, cbSuccess, cbError) => {
-    dispatch(addSource(source, cbSuccess, cbError))
+  addSource: source => {
+    dispatch(addSource(source))
   },
   fetchSources
 })
