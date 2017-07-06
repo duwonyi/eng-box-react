@@ -16,6 +16,7 @@ deploy:
   bucket: eng-box-react
   skip_cleanup: true
   region: us-east-1
+  local_dir: build
 before_install:
 - openssl aes-256-cbc -K $encrypted_5ca24187097e_key -iv $encrypted_5ca24187097e_iv
   -in .env.enc -out .env -d
