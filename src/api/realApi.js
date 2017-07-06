@@ -1,4 +1,4 @@
-const baseUrl = 'http://localhost:3001/api'
+const baseUrl = `http://${process.env.REACT_APP_API_SERVER}/api`
 
 const realApi = {
   loadSenetences: function() {

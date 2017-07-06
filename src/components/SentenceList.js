@@ -10,6 +10,7 @@ const SentenceList = ({sentences, isLoading}) => (
         <thead>
           <tr>
             <th>Sentence</th>
+            <th>Detail</th>
             <th>CreatedAt</th>
             <th>Source</th>
           </tr>
@@ -21,6 +22,7 @@ const SentenceList = ({sentences, isLoading}) => (
                 key={index}
               >
                 <td>{sentence.sentence}</td>
+                <td>{sentence.detail}</td>
                 <td>{sentence.createdAt.toLocaleString()}</td>
                 <td>{sentence.source.title}</td>
               </tr>

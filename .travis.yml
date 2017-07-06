@@ -1,10 +1,21 @@
 language: node_js
 node_js:
-  - 6
+- 6
 cache:
   yarn: true
   directories:
-    - node_modules
+  - node_modules
 script:
-  - npm test
-  - npm run build
+- yarn test
+- yarn build
+deploy:
+  provider: s3
+  access_key_id: AKIAJX5YBBM7NONXHUZA
+  secret_access_key:
+    secure: XYUjmd3SUOx/6U1ps4kTjL1MjqYOB430rO7gxbPHkNnEbFREm4lPNQ+9HsImcPcHhIwjrGq51/oS27jaH0RJ39K2bjpPjjOsHUCU4IpXz1cg9t2moO60cB0Vi6M+JifNyLsB8qbtmGUcZzfkxlMrftUWwrcm8DPXypx2/sh4sisgSAad2M84IUmUoO0mhwChA6XWiEsso3vuW6x/P8RZyU1RDVMHluJgq9XUoIttk9b6vLKYaCja0Bhwz/dw95vUKopotIqelLJQNbpoxmD3wevibhoV/G+M4C0wxnI/0LmA90PCdFu3GOhM197xwLbIHMzl1VYTDtlzp2WlcmFCHVQ5ZU0lqsGZGR60hR/IhZHCIO/0v6z55+XekL4mbn5IntLQkru9vmcXuF1PIvnbWHNSzERAi+QuG0TJkvsHTQ8VRbeaym+WAc9Ejg1VAhlbXDosx2duoNtJe3L6HPlDoi6g+qD2kgzLt1Bg3SJJEhU4/JDU3qX/R8P3weq6Wce/zR57yMlkiMD8Kx7KYQdN3SspIO2UYoPQDMONLyqaitMVCaWYuGrG2ddjzkEy/odV8klXKANMQiPj8E/1+9lfemsfV9jpSHMJzlULDMm6W3DWK1qLXXlWZ050Rt8I9o7Wi7HRis5PB0s1T9t8mQRtHU1EAHbxUqvBJzNkgqz65UQ=
+  bucket: eng-box-react
+  skip_cleanup: true
+  region: us-east-1
+before_install:
+- openssl aes-256-cbc -K $encrypted_5ca24187097e_key -iv $encrypted_5ca24187097e_iv
+  -in .env.enc -out .env -d
