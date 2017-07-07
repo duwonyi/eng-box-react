@@ -2,7 +2,7 @@ import NoMatch from './NoMatch'
 import React from 'react'
 import { shallow } from 'enzyme'
 
-describe('App', () => {
+describe('NoMatch', () => {
   it('should have div', () => {
     const wrapper = shallow(
       <NoMatch />

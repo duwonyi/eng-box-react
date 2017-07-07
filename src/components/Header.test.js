@@ -3,7 +3,7 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 import { shallow } from 'enzyme'
 
-describe('App', () => {
+describe('Header', () => {
   it('should have 4 NavLink', () => {
     const wrapper = shallow(
       <Header />
