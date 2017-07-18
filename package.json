@@ -1,7 +1,13 @@
 {
   "name": "eng-box-react",
-  "version": "0.1.0",
-  "private": true,
+  "version": "0.2.0",
+  "description": "A SPA client for Eng-Box built on React",
+  "author": "Doowon Lee",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/duwonyi/eng-box-react"
+  },
   "dependencies": {
     "prop-types": "^15.5.10",
     "react": "^15.6.1",
