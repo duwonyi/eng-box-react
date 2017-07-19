@@ -1,14 +1,14 @@
-import App from './App'
+import Footer from './Footer'
 import React from 'react'
 import { shallow } from 'enzyme'
 
-describe('App', () => {
-  it('should have 2 divs', () => {
+describe('Footer', () => {
+  it('should have 1 div', () => {
     const wrapper = shallow(
-      <App />
+      <Footer />
     )
     expect(
       wrapper.find('div').length
-    ).toBe(2)
+    ).toBe(1)
   })
 })
