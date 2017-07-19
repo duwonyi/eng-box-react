@@ -1,14 +1,14 @@
-import App from './App'
+import NoMatch from './NoMatch'
 import React from 'react'
 import { shallow } from 'enzyme'
 
-describe('App', () => {
-  it('should have 2 divs', () => {
+describe('NoMatch', () => {
+  it('should have div', () => {
     const wrapper = shallow(
-      <App />
+      <NoMatch />
     )
     expect(
       wrapper.find('div').length
-    ).toBe(2)
+    ).toBe(1)
   })
 })
