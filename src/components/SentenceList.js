@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 const SentenceList = ({sentences, isLoading}) => (
-  <div>
+  <div className='container'>
     {isLoading ? (
       <img alt='loading' src='/img/loading.gif' />
     ) : (

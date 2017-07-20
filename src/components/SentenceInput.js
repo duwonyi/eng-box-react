@@ -68,7 +68,7 @@ class SentenceInput extends Component {
   render() {
     const status = this.props.saveStatus
     return (
-      <div>
+      <div className='container'>
         <h2>Add Sentence</h2>
         <form onSubmit={this.onFormSubmit}>
           <Field
