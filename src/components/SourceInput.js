@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Field from './Field'
 import DropDown from './DropDown'
+import { Form, FormGroup, Label, } from 'reactstrap'
 
 class SourceInput extends Component {
 
@@ -70,39 +71,47 @@ class SourceInput extends Component {
     const optionName = 'What the type of source?'
     const status = this.props.saveStatus
     return (
-      <div>
-        <form onSubmit={this.onFormSubmit}>
-          <DropDown
-            name='sourceType'
-            value={this.state.fields.sourceType}
-            defaultOptionName={optionName}
-            options={sourceTypes}
-            onChange={this.onInputChange}
-          />
-          <br />
-          <Field
-            placeholder='Title'
-            name='sourceTitle'
-            value={this.state.fields.sourceTitle}
-            onChange={this.onInputChange}
-            validate={(val) => (val ? false : 'Title Required')}
-          />
-          <br />
+      <div className='container'>
+        <h2>Add source</h2>
+        <Form onSubmit={this.onFormSubmit}>
+          <FormGroup>
+            <Label for='selectSourceType'>Source Type</Label>
+            <DropDown
+              id='selectSourceType'
+              name='sourceType'
+              value={this.state.fields.sourceType}
+              defaultOptionName={optionName}
+              options={sourceTypes}
+              onChange={this.onInputChange}
+            />
+          </FormGroup>
+          <FormGroup>
+            <Label for='fieldSourceTitle'>Source Title</Label>
+            <Field
+              placeholder='Title'
+              name='sourceTitle'
+              value={this.state.fields.sourceTitle}
+              onChange={this.onInputChange}
+              validate={(val) => (val ? false : 'Title Required')}
+            />
+          </FormGroup>
           {{
-            SAVING: <input value='Saving...' type='submit' disabled />,
-            SUCCESS: <input value='Saved!' type='submit' disabled />,
+            SAVING: <input className='btn btn-secondary' value='Saving...' type='submit' disabled />,
+            SUCCESS: <input className='btn btn-secondary' value='Saved!' type='submit' disabled />,
             ERROR: <input
+              className='btn btn-secondary'
               value='Save Failed - Retry?'
               type='submit'
               disabled={this.validate()}
             />,
             READY: <input
+              className='btn btn-secondary'
               value='Submit'
               type='submit'
               disabled={this.validate()}
             />,
           }[status]}
-        </form>
+        </Form>
       </div>
     )
   }

@@ -1,6 +1,7 @@
 import SentenceList from './SentenceList'
 import React from 'react'
 import { shallow } from 'enzyme'
+import { Table } from 'reactstrap'
 
 describe('SentenceList', () => {
   it('should have a table', () => {
@@ -8,7 +9,7 @@ describe('SentenceList', () => {
       <SentenceList sentences={[]} isLoading={false}/>
     )
     expect(
-      wrapper.find('table').length
+      wrapper.find(Table).length
     ).toBe(1)
   })
 })

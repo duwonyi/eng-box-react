@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Field from './Field'
 import SourceSelect from './SourceSelect'
+import { Form, FormGroup, Label, } from 'reactstrap'
 
 class SentenceInput extends Component {
 
@@ -69,45 +70,55 @@ class SentenceInput extends Component {
     const status = this.props.saveStatus
     return (
       <div className='container'>
-        <h2>Add Sentence</h2>
-        <form onSubmit={this.onFormSubmit}>
-          <Field
-            placeholder='Sentence'
-            name='sentence'
-            value={this.state.fields.sentence}
-            onChange={this.onInputChange}
-            validate={(val) => (val ? false : 'Sentence Required')}
-          />
-          <br />
-          <SourceSelect
-            sourceType={this.state.fields.sourceType}
-            source={this.state.fields.source}
-            selected={this.state.fields.selected}
-            onChange={this.onInputChange}
-          />
-          <br />
-          <Field
-            placeholder='Source detail'
-            name='detail'
-            value={this.state.fields.detail}
-            onChange={this.onInputChange}
-          />
-          <br />
+        <h2>Add sentence</h2>
+        <Form onSubmit={this.onFormSubmit}>
+          <FormGroup>
+            <Label for='fieldSentence'>Sentence</Label>
+            <Field
+              id='fieldSentence'
+              placeholder='Sentence'
+              name='sentence'
+              value={this.state.fields.sentence}
+              onChange={this.onInputChange}
+              validate={(val) => (val ? false : 'Sentence Required')}
+            />
+          </FormGroup>
+          <FormGroup>
+            <Label for='selectSourceType'>Source Type</Label>
+            <SourceSelect
+              id='selectSourceType'
+              sourceType={this.state.fields.sourceType}
+              source={this.state.fields.source}
+              selected={this.state.fields.selected}
+              onChange={this.onInputChange}
+            />
+          </FormGroup>
+          <FormGroup>
+            <Label for='fieldSourceDetail'>Source Detail</Label>
+            <Field
+              placeholder='Source detail'
+              name='detail'
+              value={this.state.fields.detail}
+              onChange={this.onInputChange}
+            />
+          </FormGroup>
           {{
-            SAVING: <input value='Saving...' type='submit' disabled />,
-            SUCCESS: <input value='Saved!' type='submit' disabled />,
+            SAVING: <input className='btn btn-secondary' value='Saving...' type='submit' disabled />,
+            SUCCESS: <input className='btn btn-secondary' value='Saved!' type='submit' disabled />,
             ERROR: <input
+              className='btn btn-secondary'
               value='Save Failed - Retry?'
               type='submit'
               disabled={this.validate()}
             />,
             READY: <input
+              className='btn btn-secondary'
               value='Submit'
               type='submit'
               disabled={this.validate()}
             />,
           }[status]}
-        </form>
+        </Form>
       </div>
     )
   }
