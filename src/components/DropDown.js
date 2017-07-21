@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { Input } from 'reactstrap'
 
 class DropDown extends Component {
   static propTypes = {
@@ -34,7 +35,9 @@ class DropDown extends Component {
     const defaultOptionName = this.props.defaultOptionName || 'Select Option.'
     return (
       <div>
-        <select
+        <Input
+          type='select'
+          name='select'
           onChange={this.onSelect}
           value={this.state.value || ''}
         >
@@ -48,7 +51,7 @@ class DropDown extends Component {
               </option>
             ))
           }
-        </select>
+        </Input>
       </div>
     )
   }

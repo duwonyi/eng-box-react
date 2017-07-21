@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { Input } from 'reactstrap'
 
 class Field extends Component {
   static propTypes = {
@@ -32,7 +33,8 @@ class Field extends Component {
   render() {
     return (
       <div>
-        <input
+        <Input
+          type='text'
           placeholder={this.props.placeholder}
           value={this.state.value}
           onChange={this.onChange}

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import apiClient from '../api/apiClient'
 import { capitalizeFirstLetter } from '../lib/util'
+import { Input, Label } from 'reactstrap'
 
 class SourceSelect extends Component {
   static propTypes = {
@@ -56,7 +57,9 @@ class SourceSelect extends Component {
   renderSourceTypeSelect = () => {
     const types = ['book', 'web', 'video', 'own']
     return (
-      <select
+      <Input
+        type='select'
+        name='select'
         onChange={this.onSelectSourceType}
         value={this.state.sourceType || ''}
       >
@@ -70,7 +73,7 @@ class SourceSelect extends Component {
             </option>
           ))
         }
-      </select>
+      </Input>
     )
   }
 
@@ -82,21 +85,32 @@ class SourceSelect extends Component {
       return <span />
     }
     return (
-      <select
-        onChange={this.onSelectSource}
-        value={this.state.source || ''}
-      >
-        { [
-          <option value='' key='source-none'>
-            Which source?
-          </option>,
-          ...this.state.sources.map((source, index) => (
-            <option value={source._id} key={source._id}>
-              {source.title}
-            </option>
-          ))
-        ] }
-      </select>
+      <div>
+        <Label
+          className='mt-3'
+          for='selectSourceTitle'
+        >
+          Source Title
+        </Label>
+        <Input
+          id='selectSourceTitle'
+          type='select'
+          name='select'
+          onChange={this.onSelectSource}
+          value={this.state.source || ''}
+        >
+          { [
+            <option value='' key='source-none'>
+              Which source?
+            </option>,
+            ...this.state.sources.map((source, index) => (
+              <option value={source._id} key={source._id}>
+                {source.title}
+              </option>
+            ))
+          ] }
+        </Input>
+      </div>
     )
   }
 
@@ -104,7 +118,6 @@ class SourceSelect extends Component {
     return (
       <div>
         {this.renderSourceTypeSelect()}
-        <br />
         {this.renderSourceSelect()}
       </div>
     )

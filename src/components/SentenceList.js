@@ -1,18 +1,21 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Table } from 'reactstrap'
 
 const SentenceList = ({sentences, isLoading}) => (
-  <div>
+  <div className='container'>
+    <h2 className='mt-4'>Sentences</h2>
     {isLoading ? (
       <img alt='loading' src='/img/loading.gif' />
     ) : (
-      <table>
+      <Table>
         <thead>
           <tr>
+            <th>#</th>
             <th>Sentence</th>
             <th>Detail</th>
-            <th>CreatedAt</th>
             <th>Source</th>
+            <th>CreatedAt</th>
           </tr>
         </thead>
         <tbody>
@@ -21,15 +24,16 @@ const SentenceList = ({sentences, isLoading}) => (
               <tr
                 key={index}
               >
+                <th scope='row'>{index + 1}</th>
                 <td>{sentence.sentence}</td>
                 <td>{sentence.detail}</td>
-                <td>{sentence.createdAt.toLocaleString()}</td>
                 <td>{sentence.source.title}</td>
+                <td>{sentence.createdAt.toLocaleString()}</td>
               </tr>
             ))
           }
         </tbody>
-      </table>
+      </Table>
     )}
   </div>
 )

@@ -8,6 +8,7 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import App from './components/App'
 import reducer from './reducers'
 import registerServiceWorker from './registerServiceWorker'
+import 'bootstrap/dist/css/bootstrap.css'
 import './index.css'
 
 const logger = createLogger()

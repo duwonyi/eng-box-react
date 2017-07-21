@@ -1,6 +1,6 @@
 import Header from './Header'
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink } from 'reactstrap'
 import { shallow } from 'enzyme'
 
 describe('Header', () => {
