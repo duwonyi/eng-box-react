@@ -4,11 +4,16 @@ import { Input } from 'reactstrap'
 
 class Field extends Component {
   static propTypes = {
+    type: PropTypes.string,
     placeholder: PropTypes.string,
     name: PropTypes.string.isRequired,
     value: PropTypes.string,
     validate: PropTypes.func,
     onChange: PropTypes.func.isRequired,
+  }
+
+  static defaultProps = {
+    type: 'text',
   }
 
   state = {
@@ -34,7 +39,7 @@ class Field extends Component {
     return (
       <div>
         <Input
-          type='text'
+          type={this.props.type}
           placeholder={this.props.placeholder}
           value={this.state.value}
           onChange={this.onChange}

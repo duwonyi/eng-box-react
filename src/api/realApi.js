@@ -19,7 +19,11 @@ const realApi = {
 
   saveSource: function(source) {
     return post('/sources', source)
-  }
+  },
+
+  signin: function(creds) {
+    return post('/signin', creds)
+  },
 }
 
 function get(url) {

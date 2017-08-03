@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux'
 import * as types from '../constants/ActionTypes'
 import counter from './counter'
+import auth from './auth'
 
 const common = (state = {
   isLoading: false,
@@ -107,7 +108,8 @@ const rootReducer = combineReducers({
   common,
   sentences,
   sources,
-  counter
+  counter,
+  auth,
 })
 
 export default rootReducer

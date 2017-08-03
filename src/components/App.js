@@ -1,5 +1,6 @@
 import React from 'react'
 import { Route, Switch } from 'react-router-dom'
+import PrivateRoute from './PrivateRoute'
 import Header from './Header'
 import Footer from './Footer'
 import HomePage from '../containers/HomePage'
@@ -14,7 +15,10 @@ const App = () => (
     <div>
       <Switch>
         <Route exact path='/' component={HomePage} />
-        <Route path='/sentences' component={SentencePage} />
+        <PrivateRoute
+          path='/sentences'
+          component={SentencePage}
+        />
         <Route path='/words' component={WordPage} />
         <Route path='/sources' component={SourcePage} />
         <Route component={NoMatch} />

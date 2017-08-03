@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { signin, logout } from '../actions/auth'
 import { NavLink as RRNavLink } from 'react-router-dom'
 import {
   Collapse,
@@ -9,6 +11,8 @@ import {
   NavItem,
   NavLink,
 } from 'reactstrap'
+import Signin from './Signin'
+import Logout from './Logout'
 import '../styles/Header.css'
 
 class Header extends Component {
@@ -22,6 +26,13 @@ class Header extends Component {
   }
 
   render() {
+    const {
+      isAuthenticated,
+      email,
+      password,
+      signin,
+      logout,
+    } = this.props
     return (
       <div>
         <Navbar color='inverse' inverse toggleable>
@@ -70,6 +81,18 @@ class Header extends Component {
               </NavLink>
             </NavItem>
           </Nav>
+          {!isAuthenticated &&
+            <Signin
+              email={email}
+              password={password}
+              onSignin={signin}
+            />
+          }
+          {isAuthenticated &&
+            <Logout
+              onLogout = {logout}
+            />
+          }
           </Collapse>
         </Navbar>
       </div>
@@ -77,4 +100,23 @@ class Header extends Component {
   }
 }
 
-export default Header
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated,
+  email: state.auth.email,
+  password: state.auth.password,
+})
+
+const mapDispatchToProps = dispatch => ({
+  signin: creds => {
+    dispatch(signin(creds))
+  },
+  logout: () => {
+    localStorage.removeItem('token')
+    dispatch(logout())
+  }
+})
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Header)
