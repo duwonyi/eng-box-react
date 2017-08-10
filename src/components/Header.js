@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { signin, logout } from '../actions/auth'
+import { logout } from '../actions/auth'
 import { NavLink as RRNavLink } from 'react-router-dom'
 import {
   Collapse,
@@ -11,7 +11,6 @@ import {
   NavItem,
   NavLink,
 } from 'reactstrap'
-import Signin from './Signin'
 import Logout from './Logout'
 import '../styles/Header.css'
 
@@ -28,9 +27,6 @@ class Header extends Component {
   render() {
     const {
       isAuthenticated,
-      email,
-      password,
-      signin,
       logout,
     } = this.props
     return (
@@ -72,7 +68,7 @@ class Header extends Component {
             </NavItem>
             <NavItem>
               <NavLink
-                to='/Sources'
+                to='/sources'
                 className='item'
                 activeClassName='active'
                 tag={RRNavLink}
@@ -80,14 +76,19 @@ class Header extends Component {
                 Sources
               </NavLink>
             </NavItem>
-          </Nav>
           {!isAuthenticated &&
-            <Signin
-              email={email}
-              password={password}
-              onSignin={signin}
-            />
+            <NavItem>
+              <NavLink
+                to='/signin'
+                className='item'
+                activeClassName='active'
+                tag={RRNavLink}
+              >
+                Sign in
+              </NavLink>
+            </NavItem>
           }
+          </Nav>
           {isAuthenticated &&
             <Logout
               onLogout = {logout}
@@ -102,18 +103,13 @@ class Header extends Component {
 
 const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated,
-  email: state.auth.email,
-  password: state.auth.password,
 })
 
 const mapDispatchToProps = dispatch => ({
-  signin: creds => {
-    dispatch(signin(creds))
-  },
   logout: () => {
     localStorage.removeItem('token')
     dispatch(logout())
-  }
+  },
 })
 
 export default connect(

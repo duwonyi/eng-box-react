@@ -9,9 +9,6 @@ describe('Header', () => {
   it('should have 4 NavLink', () => {
     const mockStore = configureStore([])
     const store = mockStore({})
-    // const wrapper = shallow(
-    //   <Header />
-    // )
     const wrapper = shallow(
       <Provider store={store}>
         <Header />

@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { Redirect } from 'react-router-dom'
 import Field from './Field'
-import { Form, Button } from 'reactstrap'
+import { Form, FormGroup, Label, Button, } from 'reactstrap'
 
 class Signin extends Component {
 
@@ -55,27 +56,68 @@ class Signin extends Component {
     if (errMessage.length) return true
   }
 
+  redirectPath = () => {
+    const locationState = this.props.location.state
+    const pathname = (
+      locationState && locationState.from && locationState.from.pathname
+    )
+    return pathname || '/'
+  }
+
   render() {
+    const { isAuthenticated } = this.props
+    if (isAuthenticated) {
+      return (
+        <Redirect to={this.redirectPath()}/>
+      )
+    }
+
     return (
-      <div>
-        <Form inline onSubmit={this.onFormSubmit}>
-          <Field
-            type='email'
-            placeholder='Email'
-            name='email'
-            value={this.state.email}
-            onChange={this.onInputChange}
-            validate={val => val ? false: 'Email Required'}
-          />
-          <Field
-            type='password'
-            placeholder='Password'
-            name='password'
-            value={this.state.password}
-            onChange={this.onInputChange}
-            validate={val => val ? false: 'Password Required'}
-          />
-          <Button outline color="success">Sign in</Button>
+      <div className='container'>
+        <Form
+          className='form-signin'
+          onSubmit={this.onFormSubmit}
+        >
+          <h2 className="form-signin-heading">Sign in</h2>
+          <FormGroup>
+            <Label
+              for='fieldEmail'
+              className='sr-only'
+            >
+              Email
+            </Label>
+            <Field
+              id='fieldEmail'
+              type='email'
+              placeholder='Email'
+              name='email'
+              value={this.state.email}
+              onChange={this.onInputChange}
+              validate={val => val ? false: 'Email Required'}
+            />
+            <Label
+              for='fieldPassword'
+              className='sr-only'
+            >
+              Email
+            </Label>
+            <Field
+              id='fieldPassword'
+              type='password'
+              placeholder='Password'
+              name='password'
+              value={this.state.password}
+              onChange={this.onInputChange}
+              validate={val => val ? false: 'Password Required'}
+            />
+          </FormGroup>
+          <Button
+           color='success'
+           size='lg'
+           block
+          >
+            Sign in
+          </Button>
         </Form>
       </div>
     )

@@ -4,6 +4,7 @@ import PrivateRoute from './PrivateRoute'
 import Header from './Header'
 import Footer from './Footer'
 import HomePage from '../containers/HomePage'
+import SigninPage from '../containers/SigninPage'
 import SentencePage from '../containers/SentencePage'
 import WordPage from '../containers/WordPage'
 import SourcePage from '../containers/SourcePage'
@@ -15,12 +16,19 @@ const App = () => (
     <div>
       <Switch>
         <Route exact path='/' component={HomePage} />
+        <Route path='/signin' component={SigninPage} />
         <PrivateRoute
           path='/sentences'
           component={SentencePage}
         />
-        <Route path='/words' component={WordPage} />
-        <Route path='/sources' component={SourcePage} />
+        <PrivateRoute
+          path='/words'
+          component={WordPage}
+        />
+        <PrivateRoute
+          path='/sources'
+          component={SourcePage}
+        />
         <Route component={NoMatch} />
       </Switch>
     </div>
