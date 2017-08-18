@@ -37,7 +37,7 @@ class Field extends Component {
 
   render() {
     return (
-      <div>
+      <div className={this.props.className}>
         <Input
           type={this.props.type}
           placeholder={this.props.placeholder}

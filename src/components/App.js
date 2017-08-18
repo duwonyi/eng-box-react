@@ -5,6 +5,7 @@ import Header from './Header'
 import Footer from './Footer'
 import HomePage from '../containers/HomePage'
 import SigninPage from '../containers/SigninPage'
+import SignupPage from '../containers/SignupPage'
 import SentencePage from '../containers/SentencePage'
 import WordPage from '../containers/WordPage'
 import SourcePage from '../containers/SourcePage'
@@ -17,6 +18,7 @@ const App = () => (
       <Switch>
         <Route exact path='/' component={HomePage} />
         <Route path='/signin' component={SigninPage} />
+        <Route path='/signup' component={SignupPage} />
         <PrivateRoute
           path='/sentences'
           component={SentencePage}

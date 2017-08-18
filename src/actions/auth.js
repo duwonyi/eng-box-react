@@ -16,11 +16,13 @@ const signinFailure = () => ({
 export const signin = creds => dispatch => {
   dispatch(signinRequest())
   apiClient.signin(creds)
-    .then(token => {
-      localStorage.setItem('token', token.token)
+    .then(user => {
+      localStorage.setItem('token', user.token)
+      localStorage.setItem('userId', user.userId)
       dispatch(signinSuccess())
     })
     .catch(err => {
+      console.log(err)
       dispatch(signinFailure(err))
     })
 }
@@ -28,3 +30,28 @@ export const signin = creds => dispatch => {
 export const logout = () => ({
   type: types.LOGOUT
 })
+
+const signupRequest = () => ({
+  type: types.SIGNUP_REQUEST
+})
+
+const signupSuccess = () => ({
+  type: types.SIGNUP_SUCCESS
+})
+
+const signupFailure = () => ({
+  type: types.SIGNUP_FAILURE
+})
+
+export const signup = newUser => dispatch => {
+  dispatch(signupRequest())
+  apiClient.signup(newUser)
+    .then(user => {
+      localStorage.setItem('token', user.token)
+      localStorage.setItem('userId', user.userId)
+      dispatch(signupSuccess())
+    })
+    .catch(err => {
+      dispatch(signupFailure(err))
+    })
+}

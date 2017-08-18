@@ -24,6 +24,9 @@ const realApi = {
   signin: function(creds) {
     return post('/signin', creds, false)
   },
+  signup: function(newUser) {
+    return post('/users', newUser, false)
+  }
 }
 
 function get(url, isNeedToken) {
@@ -51,7 +54,17 @@ function post(url, data, isNeedToken) {
     headers: new Headers(headerConfig)
   })
   return fetch(request)
+    .then(handleErrors)
     .then(onSuccess, onError)
+}
+
+// https://www.tjvantoll.com/2015/09/13/fetch-and-errors/
+// https://stackoverflow.com/questions/29473426/fetch-reject-promise-with-json-error-object
+function handleErrors(response) {
+  if (!response.ok) {
+    return response.json().then(err => { throw err })
+  }
+  return response
 }
 
 function onSuccess(response) {
@@ -61,6 +74,7 @@ function onSuccess(response) {
 
 function onError(error) {
   console.log(error)
+  throw error
 }
 
 function convertStringToDate(json) {

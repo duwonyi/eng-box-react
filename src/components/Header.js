@@ -88,6 +88,18 @@ class Header extends Component {
               </NavLink>
             </NavItem>
           }
+          {!isAuthenticated &&
+            <NavItem>
+              <NavLink
+                to='/signup'
+                className='item'
+                activeClassName='active'
+                tag={RRNavLink}
+              >
+                Sign up
+              </NavLink>
+            </NavItem>
+          }
           </Nav>
           {isAuthenticated &&
             <Logout
@@ -108,6 +120,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   logout: () => {
     localStorage.removeItem('token')
+    localStorage.removeItem('userId')
     dispatch(logout())
   },
 })
