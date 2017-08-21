@@ -1,5 +1,6 @@
 import React, { Component, } from 'react'
 import PropTypes from 'prop-types'
+import { Redirect } from 'react-router-dom'
 import Field from './Field'
 import { Form, FormGroup, Label, Button, } from 'reactstrap'
 
@@ -60,6 +61,13 @@ class Signup extends Component {
   }
 
   render() {
+    const { isAuthenticated } = this.props
+    if (isAuthenticated) {
+      return (
+        <Redirect to='/' />
+      )
+    }
+
     return (
       <div className='container'>
         <Form

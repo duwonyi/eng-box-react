@@ -68,7 +68,7 @@ class Signin extends Component {
     const { isAuthenticated } = this.props
     if (isAuthenticated) {
       return (
-        <Redirect to={this.redirectPath()}/>
+        <Redirect to={this.redirectPath()} />
       )
     }
 

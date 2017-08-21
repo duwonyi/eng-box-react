@@ -29,6 +29,7 @@ class SourceInput extends Component {
     const source = {
       title: this.state.fields.sourceTitle,
       type: this.state.fields.sourceType,
+      userId: localStorage.getItem('userId'),
     }
     source.createdAt = new Date()
 

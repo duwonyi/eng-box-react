@@ -2,7 +2,7 @@ const baseUrl = `http://${process.env.REACT_APP_API_SERVER}/api`
 
 const realApi = {
   loadSenetences: function() {
-    return get('/sentences', true)
+    return get(`/sentences?userId=${getUserId()}`, true)
   },
 
   saveSentence: function(sentence) {
@@ -11,9 +11,9 @@ const realApi = {
 
   getSources: function(type) {
     if (type) {
-      return get(`/sources/types/${type}`, true)
+      return get(`/sources/types/${type}?userId=${getUserId()}`, true)
     } else {
-      return get('/sources', true)
+      return get(`/sources?userId=${getUserId()}`, true)
     }
   },
 
@@ -93,5 +93,6 @@ const getTokenHeader = () => ({
 })
 
 const getToken = () => localStorage.getItem('token') || null
+const getUserId = () => localStorage.getItem('userId') || null
 
 export default realApi

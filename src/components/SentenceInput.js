@@ -33,6 +33,7 @@ class SentenceInput extends Component {
       sentence: this.state.fields.sentence,
       source: this.state.fields.selected,
       detail: this.state.fields.detail,
+      userId: localStorage.getItem('userId'),
     }
     sentence.createdAt = new Date()
 
