@@ -17,6 +17,7 @@ class Signup extends Component {
     password: this.props.password || '',
     passwordCfm: this.props.passwordCfm || '',
     fieldErrors: {},
+    error: '',
   }
 
   componentWillReceiveProps(update) {
@@ -57,6 +58,12 @@ class Signup extends Component {
     if (!email) return true
     if (!password) return true
     if (!passwordCfm) return true
+    if (password !== passwordCfm) {
+      this.setState({'error': 'Password is the same.'})
+      return true
+    } else {
+      this.setState({'error': ''})
+    }
     if (errMessage.length) return true
   }
 
@@ -130,6 +137,7 @@ class Signup extends Component {
           >
             Sign up
           </Button>
+          <span style={{ color: 'red' }}>{this.state.error}</span>
         </Form>
       </div>
     )
