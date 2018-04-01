@@ -31,8 +31,8 @@ class Header extends Component {
     } = this.props
     return (
       <div>
-        <Navbar color='inverse' inverse toggleable>
-          <NavbarToggler right onClick={this.toggle} />
+        <Navbar color='dark' dark expand>
+          <NavbarToggler right='true' onClick={this.toggle} />
           <NavbarBrand href='/'>Eng-Box</NavbarBrand>
           <Collapse isOpen={this.state.isOpen} navbar>
           <Nav className='ml-auto' navbar>
